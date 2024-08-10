@@ -8,8 +8,9 @@ function BookList({ books }: Props) {
 	return (
 		<div data-test="book-list">
 			{books.map(book => (
-				<div key={book.name} className="book-item">
+				<div key={book.id} className="book-item">
 					<h2 className="title">{book.name}</h2>
+					<a href={`/books/${book.id}`}>View Details</a>
 				</div>
 			))}
 		</div>

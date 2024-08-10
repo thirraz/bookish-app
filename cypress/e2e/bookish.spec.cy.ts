@@ -2,15 +2,6 @@ import { deleteData, postData } from "../../stub-server/serverOperations"
 
 describe("Bookish application", () => {
 	before(() => {
-		async function deleteData() {
-			const res = await fetch("http://localhost:8080/books?_cleanup=true", {
-				method: "DELETE"
-			})
-			const data = await res.json()
-
-			return data
-		}
-
 		return deleteData()
 	})
 
@@ -29,7 +20,7 @@ describe("Bookish application", () => {
 	})
 
 	it("visits the bookish", () => {
-		cy.visit(" http://localhost:5173/")
+		cy.visit("http://localhost:5173/")
 		cy.get('h2[data-testing="heading"]').contains("Bookish")
 	})
 
@@ -45,5 +36,12 @@ describe("Bookish application", () => {
 				"Building Microservices"
 			])
 		})
+	})
+
+	it("goes to the detail page", () => {
+		cy.visit("http://localhost:5173/")
+		cy.get("div.book-item").contains("View details").eq(0).click()
+		cy.url().should("include", "/books/1")
+		cy.get("h2.book-title").contains("Refactoring")
 	})
 })
