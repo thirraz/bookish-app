@@ -8,12 +8,12 @@ function App() {
 		async function fetchData() {
 			const req = await fetch("http://localhost:8080/books")
 			const data = await req.json()
-			setBooks(books)
+			setBooks(data)
 			console.log(data)
 		}
 
 		fetchData()
-	}, [books])
+	}, [])
 
 	return (
 		<div>
